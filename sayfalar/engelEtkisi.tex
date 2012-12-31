@@ -12,3 +12,13 @@ Ortamda bulunan engellerin artmasý $Q_{free}$ yapýlandýrma kümesinin eleman sayý
 
 Þekil \ref{fig:mapEtki} içinde bulunan iki simülasyon örneði 500 örnek yapýlandýrma alýnarak ve her yapýlandýrma 3 komþusuna baðlanarak oluþturulmuþtur. Görüldüðü üzere ilk örnekte engellerin bulunma sýklýðý az olduðundan, oluþturulan yol haritasý üzerinde kopukluklar nadir görülmüþtür. $Q_{free}$ yapýlandýrma kümesinin neredeyse tamamýna eriþim saðlanmaktadýr. Ýkinci örnekte ise engeller sýk görüldüðünden alýnan örneklerin birbirine baðlanmasýnda sýkýntýlar yaþanmýþtýr. Engeller arasýnda bulunan dar boðaz geçiþlerde kopukluklar yaþanmýþ ve bütün bir yol haritasý oluþturulamamýþtýr.
 
+Engellerin sýk olduðu bu tür ortamlarda örnekleme sayýsýný artýrmak tam bir yol haritasý oluþturmak için iyi bir çözümdür fakat baðlanabilir komþu yapýlandýrma sayýsý da doðru þekilde ayarlanmalýdýr. Þekil \ref{fig:3000ornek5komsu} engellerin bulunduðu bir ortam için 3000 örnek yapýlandýrma alýnarak oluþturulmuþ bir yol haritasýný göstermektedir. Her yapýlandýrma çevresinde bulunan 3 komþu yapýlandýrmasýna baðlanmýþtýr.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.70\textwidth]{resimler/3000ornek5komsu.png}
+	\caption{3000 örnek yapýlandýrma alýnarak oluþturulmuþ yol haritasý örneði}
+	\label{fig:3000ornek5komsu}
+\end{figure}
+
+Yol haritasýnýn oluþturulmasý sýrasýnda alýnan örneklerden bazýlarý $Q_{forbidden}$ yasaklý yapýlandýrmalar kümesinin elemanýdýr. Bu elemanlarýn seçiminde çakýþma algýlama testi negatif sonuç döndürmekte ve yerine yeni bir yapýlandýrma seçimi daha yapýlmaktadýr. Her yapýlandýrma seçim iþlemi programa ek iþlem yükü getirmekte ve çalýþma zamanýný kötü yönde etkilemektedir. Ayrýca 3000 örnek yapýlandýrmanýn tüm komþularýna baðlanabilirlik testi uygulanmaktadýr. Bu test de örnekleme sayýsýna baðlý olarak çalýþma zamanýný etkilemektedir.
