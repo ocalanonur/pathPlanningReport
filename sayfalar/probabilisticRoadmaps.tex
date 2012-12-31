@@ -1,0 +1,38 @@
+Olasýlýksal yol haritasý yöntemi (Probabilistic Roadmap Method\footnote{Rapor içeriðinde Probabilistic Roadmap Methods yerine PRM kýsaltmasý kullanýlacaktýr.}) de örnekleme tabanlý bir yöntemdir ve iki safhadan oluþur. Öðrenme safhasýnda\footnote{Öðrenme Safhasý(Learning Phase)} robot için eriþilebilir örnek yapýlandýrmalar üretilmektedir. Bu yapýlandýrmalarýn tamamý $Q_{free}$ serbest yapýlandýrma uzayý içerisinden seçilir. Yapýlandýrma seçiminin rastgele yapýlmasý birçok problem üzerinde etkili olarak çalýþmaktadýr. Yapýlandýrma seçiminin rastgele yapýldýðý bu yöntemlere temel \emph{(basic)} PRM'ler denir. PRM'in baþarýsý, seçilen bu yapýlandýrmalarýn $Q_{free}$ uzayý içerisinde olup olmadýðýnýn kontrolünün hýzýna da baðlýdýr. Robotun özgürlük derecesinin artmasý bu kontrolleri karmaþýk ve zor hale getirecektir. 
+
+PRM, örnek yapýlandýrmalarý elde edildikten sonra bir yol haritasý oluþturacak þekilde aralarýnda baðlantý kurmaktadýr. Sorgu safhasý\footnote{Sorgu Safhasý (Query Phase)} olarak adlandýrýlan bu safhada, bir yapýlandýrmadan diðer bir yapýlandýrmaya baðlantý kurulurken arada geçilen tüm yapýlandýrmalarýn da $Q_{free}$ kümesinde bulunma zorunluluðu vardýr. Bu koþullarý saðlayan bir yapý kurulduðu zaman robotun yapacaðý tek iþlem oluþturulan yol haritasý üzerinde baþlangýç ve hedef yapýlandýrmalarý arasýnda ilerlemek olacaktýr. Oluþturulan bu yol haritasý yönlendirilmemiþ bir çizge $G = (V,E)$ olarak ifade edilir. Burada V $Q_{free}$ kümesinden seçilmiþ robot yapýlandýrmalarýný göstermektedir. E ise eðer varsa iki yapýlandýrma ($q_{1}$,$q_{2}$) arasýnda serbest bir yol belirtir.
+
+\begin{algorithm}{}[V,E]
+\caption{Yol Haritasý Oluþturma Algoritmasý}
+\begin{algorithmic}[1]
+\State $V\gets \emptyset$
+\State $E\gets \emptyset$
+\While{$\mid V \mid < n$}
+	\Repeat
+		\State $q\gets$Q uzayýndan rastgele bir yapýlandýrma
+	\Until{$q \in Q_{free}$}
+	\State $V \gets V \cup {q}$
+\EndWhile\label{euclidendwhile}
+\ForAll{$q \in V$}
+	\State $N_{q} \gets$V içinde uzaklýðý göre seçilmiþ k. komþu
+	\ForAll{$q' \in N_{q}$}
+		\If{(q,q') $\notin$ E $ \myAnd \Delta$(q,q') $\neq$ NIL }
+			\State $E \gets E \cup$ {(q,q')}
+		\EndIf
+	\EndFor
+\EndFor
+\end{algorithmic}
+\label{algo1}
+\end{algorithm}
+Algoritma \ref{algo1} bir yol haritasýnýn oluþturulmasýndaki tüm aþamalarý göstermektedir. Baþlangýçta G = (V,E) çizgesi boþ kümeden oluþmaktadýr. Daha sonra $Q$ uzayýndan bir örnek yapýlandýrma alýnýr. Eðer bu yapýlandýrma herhangi bir engel ile çakýþma yapmýyor ise yol haritasýna eklenir. Bu iþlem $Q_{free}$ kümesinden n sayýda yapýlandýrma elde edilinceye kadar devam eder. Daha sonra tüm $q \in V$ yapýlandýrmalarýndan $N_{q}$ k elemanlý komþu kümelerindeki her bir yapýlandýrmaya bir yol olup olmadýðýna bakýlýr. Eðer (q,q') arasýnda bir yol bulunabiliyorsa bu yol E kümesine eklenir. Engellerin çok sýk bulunduðu ortamlarda $Q$ uzayý içerisinde n tane çakýþma olmayan bir yapýlandýrma bulma iþlemi zorlaþacaktýr. Bu yüzden bu deðerin fazla seçilmesi bu kýsýmdaki iþlem süresini artýracaktýr. Az seçilmesi durumunda ise yapýlandýrmalarýn birbirleri ile baðlantýlarý saðlanamayacak ve sonuçta bir yol bulunamayacaktýr.
+
+Bunlarýn yanýnda bir yapýlandýrmanýn baðlanacaðý komþu sayýsýný tanýmlayan k, verimliliði etkileyen önemli bir deðiþkendir. Baðlanacak komþu sayýsýnýn artmasý baðlanabilirlik testi yapýlacak olan (q,q') çiftlerini artýracaðýndan ek iþlem yükü getirecektir. Az seçilmesi ise tüm serbest yapýlandýrmalarýn üzerinde bir yol oluþturamayacak kadar düþük elemanlý bir çizge oluþmasýna neden olacaktýr. Bu nedenlerden dolayý n yapýlandýrma sayýsý ve k komþu sayýsý deðerleri arasýndaki hassas denge korunmalýdýr. Baðlanabilirlik testine Bölüm \ref{sect:cakismaAlgilama} içerisinde deðinilecektir.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{resimler/roadmapTrue.jpg}
+	\caption{2 boyutlu Euclidean uzayýndaki bir kare için yol haritasý uygulamasý }
+	\label{fig:roadmapTrue}
+\end{figure}
+
+Þekil \ref{fig:roadmapTrue}, XNA Framework\cite{website:xnaFramework} ile yapýlmýþ bir yol haritasý uygulamasýný göstermektedir. Sarý bölgeler ortamda bulunan engelleri ifade etmektedir. Örnek yapýlandýrmalarýn sayýsý n = 500 kabul edilmiþ ve ona göre toplanmýþtýr. Her bir yapýlandýrma etrafýnda en fazla, baðlanabilir k = 8 komþu yapýlandýrmaya baðlanmýþtýr. Görüldüðü gibi neredeyse çoðu dar bölgelerde baðlantý saðlanmýþ, bazý yapýlandýrmalar dýþarda kalmýþtýr. Baðlantýlarýn sürekli olduðu yapýlandýrmalardan kopuk baðlantýlarýn olduðu yapýlandýrmalara eriþim olmayacaktýr. Örnekleme sayýsý veya baðlanabilir komþu yapýlandýrma sayýsý artýrýlarak bu istenmeyen durum ortadan kaldýrabilir.

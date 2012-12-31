@@ -1,0 +1,12 @@
+$Q_{free}$ serbest yapýlandýrma uzayý içerisinde yol haritalarý oluþturarak problemleri çözen bir çok yol planlayýcýsý bulunmaktadýr. Visibility graph, Cell Decompositions gibi yöntemlerde bu þekilde çalýþmaktadýr. Yapýlandýrma uzaylarýnýn boyutlarý arttýkça bu yöntemlerin çözümleri yetersiz kalmaktadýr. Örnekleme tabanlý yöntemlerin \emph{(Sample Based Methods)} kullanýmý diðer yöntemlerin verimli olarak çözemediði, yapýlandýrma uzayý boyutunun fazla olduðu bu tip problemleri çözmede devreye girmektedir.
+
+Örnekleme tabanlý yöntemler ilk olarak ortamdan $Q_{free}$ serbest yapýlandýrma uzayý içerisinde olmak üzere yapýlandýrmalar toplayarak ön bilgiye sahip olurlar. Daha sonra topladýklarý bu veriler ile yol planlama problemlerini çözerler. Yapýlandýrma seçimleri rastgele yapýlabileceði gibi \emph{Halton Sequence} veya \emph{Hammersley Sequence} yöntemleri kullanýlarak da yapýlabilir. Þekil \ref{fig:randomHalton} 2 boyutlu bir uzay içerisinde bu yöntemler kullanýlarak elde edilmiþ yapýlandýrmalarý göstermektedir.
+
+\begin{figure*}[ht]
+	\centering
+	\includegraphics[width=0.30\textwidth]{resimler/random.png}
+	\includegraphics[width=0.30\textwidth]{resimler/halton.png}
+	\includegraphics[width=0.30\textwidth]{resimler/hammersley.png}
+	\caption{Rastgele, Halton ve Hammersley Yöntemleri}
+	\label{fig:randomHalton}
+\end{figure*}

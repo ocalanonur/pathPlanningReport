@@ -1,0 +1,14 @@
+Bir yol haritasý oluþturulurken herhangi bir düðümden ulaþýlabilecek komþu düðümlerin sayýsýnýn artmasý hem baðlanabilirlik testinde, hemde Dijkstra algoritmasýnda ek iþlem yapýlmasýna neden olacaktýr. Bu deðiþkenin etkilerini görebilmek için örnekleme sayýsýnýn sabit tutulduðu iki simülasyon ortamýný ele alalým (Þekil \ref{fig:komsuEtki}).
+
+\vspace{-1mm}
+\begin{figure}[h]
+	\includegraphics[width=0.47\textwidth]{resimler/komsuEtkisi.png}
+	\label{fig:komsuEtkisi1}
+	\hspace{5mm}
+	\includegraphics[width=0.47\textwidth]{resimler/komsuEtkisi2.png}
+	\label{fig:komsuEtkisi2}
+\caption{Örnekleme Sayýsýnýn Etkisi}
+\label{fig:komsuEtki}
+\end{figure}
+
+Ýlk örnekte baðlanabilir komþu yapýlandýrma sayýsý 2 olarak ayarlanmýþtýr. Böylece her yapýlandýrma kendine yakýn en fazla 2 yapýlandýrmaya baðlanmýþtýr. Bu yüzden çizge çok sayýda alt çizgelere ayrýlmýþ ve bütünlük saðlanamamýþtýr. Bu durumda herhangi iki yapýlandýrma arasýnda eriþim saðlanamayacaktýr. Ýkinci örnekte örnekleme sayýsý sabit tutularak baðlanabilir komþu sayýsý 10'a çýkarýlmýþtýr. Bu durum her bir düðüm için uygulanacak baðlanabilirlik testi sayýsýný 5 kat daha arttýrmýþtýr. Bu yüzden yol haritasýnýn oluþturulmasý daha uzun sürmüþtür.

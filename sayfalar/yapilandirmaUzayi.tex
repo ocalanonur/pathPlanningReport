@@ -1,0 +1,14 @@
+Yol planlama probleminin oluþabilmesi için aþaðýda bulunan 4 maddeye ihtiyaç vardýr.
+
+\begin{itemize}
+	\item Hareket edecek olan nesnenin geometrik þekli
+	\item Nesnenin hareket edeceði çevrenin (workspace\footnote{Workspace nesnenin eriþebildiði veya eriþemediði tüm yapýlandýrmalarý kapsar. Rapor içeriðinde bu yapý kýsaca çevre olarak isimlendirilecektir.}) geometrik tanýmlamasý
+	\item Nesne hareketinin serbestlik derecesi tanýmlamasý
+	\item Planlanacak olan yolun baþlangýç ve bitiþ yapýlandýrmalarý
+\end{itemize}
+
+Bu maddeler kullanýlarak bir robotun yapýlandýrma uzayý oluþturulabilir. Örneðin çalýþma alanýndaki robotun yapýlandýrmasý, birkaç parametre kullanýlarak tanýmlanabilir. 2 boyutlu bir çevre üzerinde çalýþan bir robot düþünelim. Bu robotun yapýlandýrmasý, bulunduðu yüzeyin x ve y kordinatlarý olarak belirtilebilir. Diðer bir örnek ile; eklemli robot kollarýnýn yapýlandýrmasýný belirtmek için de ardýþýk baðlantýlar arasýnda yapýlan açýlar gösterilebilir. Bir robot yapýlandýrmasýný özgün bir þekilde tanýmlayabilecek, en düþük parametre sayýsýna \emph{serbestlik derecesi} (degrees of freedom) denir. Ýþte bu robot yapýlandýrmalarýnýn oluþturduðu kümeye \emph{yapýlandýrma uzayý} adý verilir ve $\mathcal{Q}$ ile sembollendirilir. Kýsaca robot kolunun eriþebileceði tüm pozisyonlarýn kümesine yapýlandýrma uzayý denir. Robotun serbestlik derecesindeki artýþ, yapýlandýrma uzayýnda da bir artýþa neden olur. 
+
+Bir robotun bulunduðu çevrede bazý engeller olabilir. Bu engelleri belirleyen yapýlandýrmalar yasaklý (\emph{forbidden}) olarak isimlendirilir. Bir $q$ yapýlandýrmasý yasaklý olarak belirlenmiþ olsun. Robotun bu yapýlandýrmaya gelmesi çevrede bulunan baþka bir engel ile çakýþma durumunu ortaya çýkarýr. Verilen bu $c$ yasaklý yapýlandýrma, tüm yasaklý yapýlandýrmalarý içeren $\mathcal{Q}_{forb}$ kümesinin bir elemanýdýr. Robotun serbestçe gezinebileceði yapýlandýrmalarýn kümesi de $\mathcal{Q}_{free}$ ile gösterilir. Yapýlandýrma uzayý, serbest ve yasaklý yapýlandýrma kümelerinin birleþiminden oluþmaktadýr.
+
+Bir yol fonksiyonu, $\pi:[0,L]\rightarrow\mathcal{Q}$ þeklinde sürekli fonksiyon olarak tanýmlanýr. Burada L yolun uzunluðunu belirtmektedir. Oluþturulacak yolda çevrede bulunan engellerin hiçbiri ile çakýþma olmamalýdýr. Matematiksel bir þekilde ifade etmek istersek; baþlangýç (start) yapýlandýrmasý $q_{start}$$\in\mathcal{Q}$ ve hedef (goal) yapýlandýrmasý $q_{goal}$$\in\mathcal{Q}$ olan bir çevrede bulunacak yolun özelliði: $\pi(0)=$$q_{start}$, $\pi(L)=$$q_{goal}$ olmak üzere $\forall(t\in[0,L]::\pi(t)\in\mathcal{Q}_{free})$ olmalýdýr. Kýsaca baþlangýç ve hedef yapýlandýrmalar arasýnda ilerlerken geçilecek tüm yapýlandýrmalar, $\mathcal{Q}_{free}$ kümesinden seçilmelidir. Bazý çevrelerde bu özelliklere sahip birden fazla yol bulunabilir. Bulunan yollarýn birbirinden üstünlüðü mesafelerinin kýsalýðýyla ölçülebilir.

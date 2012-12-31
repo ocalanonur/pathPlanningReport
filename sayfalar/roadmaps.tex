@@ -1,0 +1,21 @@
+Bölüm~\ref{yapilandirmaUzayi} içerisinde bahsedildiði gibi yol planlayýcýsý, baþlangýç ve bitiþ yapýlandýrmalarý arasýnda bir yol planlar. Eðer ayný çevre içerisinde birden fazla yol bulunduðunu biliyorsak, bu yollarý içerisinde barýndýran bir veri yapýsý oluþturmak mantýklý olacaktýr. Böylece bu veri yapýsý içerisinden yol daha hýzlý bulunabilir. Oluþturulacak veri yapýsýna \emph{harita} denir. \emph{Haritalandýrma} ise robotun çevresinde olup biteni sensörleri ile modellemesidir. Robot bulunduðu çevre ile ilgili herhangi bir önbilgiye sahip olmadýðý zamanlarda haritalandýrma önem kazanýr. Kapalý ortamlarda haritalarýn üç deðiþik gösterimleri bulunur: topolojik, geometrik ve hücresel (bakýnýz Þekil \ref{topoGeometric}).
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{resimler/topolojikGeotmetrik.jpg}
+	\caption{Çevrelerin farklý gösterimleri: topolojik, geometrik ve hücresel}\label{topoGeometric}
+\end{figure}
+
+Bir \emph{yol haritasý} topolojik harita sýnýfýndandýr. Yol haritasýnda robotun gidebileceði seçilmiþ yapýlandýrmalar birbiri ile baðlantýlýdýr ve tamamý $\mathcal{Q}_{free}$ kümesinden seçilmiþtir. Rastgele seçilen bu yapýlandýrmalarýn sayýsýnýn artmasý, yol haritasýnýn kapsama alanýný arttýracak ve bulunabilecek yollar arasýnda en kýsa olana yaklaþýmý saðlayacaktýr. Topolojik bir yol haritasýnýn üzerinde bulunan kenarlarýn ve düðümlerin fiziksel anlamlarý vardýr. Örneðin, bir yol haritasý düðümü eriþilebilir bir konumu belirler veya iki komþu düðüm arasýnda bulunan þerit bu ikisi arasýndaki yolu belirler.
+
+Robotlarýn kullandýðý yol haritalarý günlük hayatta kullandýðýmýz otoyol haritalarýna benzemektedir. Gideceðimiz yere varmak için tüm sokaklara veya arayollara bakmak yerine hangi anayollarý kullanacaðýmýzý belirleriz. Daha sonra baþlangýç noktamýzdan belirlediðimiz anayola en kýsa yoldan ve ayný þekilde hedef noktasýna en yakýn anayoldan çýkarak güzergahýmýzý oluþtururuz. Burada yol haritasý robot için anayollarýn bilgisini tutmaktadýr. Bir baþlangýç yapýlandýrmasý $q_{start}$$\in\mathcal{Q}_{free}$ konumundan baþlayan robot ilk önce kendine en yakýn yol haritasý düðümüne gitmeli ve daha sonra $q_{goal}$$\in\mathcal{Q}_{free}$ hedep yapýlandýrmasýna en yakýn düðümden çýkýp sonuca ulaþmalýdýr. Harita üzerinde ise gidilebilecek tüm komþu yapýlandýrmalar önceden belirlendiði için en kýsa yol algoritmalarý uygulanarak çýkýþa en yakýn düðüme nerelerden gidileceði bulunabilir.
+
+\begin{quotation}
+\bfseries Yol Haritasý (Roadmap) : \mdseries Serbest yapýlandýrma uzayý $\mathcal{Q}_{free}$ içerisinde bir yol ile baðlanabilen bütün $q_{start}$ ve $q_{goal}$ yapýlandýrmalarý için aþaðýdaki özellikleri saðlayan tek boyutlu eðrilerin oluþturduðu yapýya \emph{yol haritasý} (roadmap) denir ve \emph{RM} ile gösterilir.
+\begin{itemize}
+	\item Eriþilebilirlik(Accessibility) : $q_{start}\in Q_{free}$ koþulunu saðlayan bir baþlangýç yapýlandýrmasýndan, $q'_{start}\in$ \emph{RM} koþulunu saðlayan bazý yapýlandýrmalara giden bir yol bulunmalýdýr.
+	\item Ayrýlabilirlik(Departability) : $q'_{goal}\in$ \emph{RM} koþulunu saðlayan bazý yapýlandýrmalardan, $q_{goal}\in Q_{free}$ koþulunu saðlayan yapýlandýrmaya giden bir yol bulunmalýdýr.
+	\item Baðlanabilirlik : \emph{RM} içerisinde $q'_{start}$ ve $q'_{goal}$ yapýlandýrmalarý arasýnda bir yol bulunmalýdýr.
+\end{itemize}
+\end{quotation}
+
+Bu özelliklerden tekinin bile saðlanmamasý, baþlangýç ve hedef yapýlandýrmalarý arasýnda bir yolun bulunamayacaðýný gösterir. Bu nedenle yol planlamada doðru bir yol haritasý oluþturma önemli yer tutmaktadýr.

@@ -1,0 +1,45 @@
+Algoritma \ref{algo1} bir yol haritasý oluþturmak için gerekli adýmlarý göstermektedir. Yol haritasýný oluþturmaya baþlamadan önce $Q_{free}$ serbest yapýlandýrma uzayýndan n sayýda örnekleme alýnmalýdýr. Simülasyon bu örnekleri alýrken rastgele seçimler yapmaktadýr. Her örnek alýndýðýnda, V kümesine eklemeden önce seçilen yapýlandýrmanýn $Q_{free}$ içerisinde olup olmadýðý kontrol edilmeli eðer bu kümenin elamaný deðilse yeni bir yapýlandýrma seçilmelidir. Eðer bir yapýlandýrma hiçbir engel ile çakýþma yapmýyor ise $Q_{free}$ içerisindedir. Bu kontrol iki aþamadan oluþmaktadýr.
+
+\begin{algorithm}
+	\caption{Ýki Yapýlandýrma Arasýnda Çakýþma Algýlama}
+	\label{algo:intersect}
+	\begin{algorithmic}
+		\Procedure {Intersect}{$conf1, conf2$}
+			\State c1 $\gets$ conf1 yapýlandýrmasýnýn merkez noktasý
+			\State c2 $\gets$ conf2 yapýlandýrmasýnýn merkez noktasý
+			\State s1 $\gets$ conf1 yapýlandýrmasýnýn boyutlarý
+			\State s2 $\gets$ conf2 yapýlandýrmasýnýn boyutlarý
+			\If {|c1.X - c2.X|<|(s1.X + s2.X)/2| $\And$ |c1.Y - c2.Y|<|(s1.Y + s2.Y)/2|}
+				\State \textbf{return} $true$
+			\Else
+				\State \textbf{return} $false$
+			\EndIf
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+Ýlk aþamada iki yapýlandýrma arasýnda bir çakýþma olup olmadýðýný tespit eden bir metod yazýlmýþtýr. Bu metod kendisine parametre olarak gelen iki yapýlandýrmanýn merkezlerini bulmaktadýr. Merkez pikseli bulunurken sol üst köþenin x ve y düzlemdeki deðerlerine sýrasýyla en ve boy deðerlerinin yarýsý eklenmektedir. Daha sonra x ekseni üzerinde kesiþme durumu ve y ekseni üzerinde kesiþme durumalarý incelenmektedir (Algoritma \ref{algo:intersect}). Eðer her iki eksende birden kesiþme durumu saðlanýyorsa sonuç doðru olarak döner. Eksenlerden en az birinde kesiþme koþulunun saðlanmamasý durumunda ise kesiþme yoktur denilebilir.
+
+Bu yöntem ile $Q_{free}$ içerisinden alýnmasý gereken tüm örnek yapýlandýrmalar toplanmaktadýr. Algoritma \ref{algo:intersect} konumlarý sabit iki yapýlandýrmanýn çakýþma yapýp yapmadýðýný kontrol ettiðinden dolayý rastgele seçilmiþ iki yapýlandýrma arasýnda ilerleyen bir Agent nesnesinin, arada kalan bölgelerde de engellerle karþýlaþma olasýlýðý vardýr. Bu yüzden bu ara kýsýmlarda da çakýþma kontrolü yapýlmalýdýr. Baðlanabilirlik testi ile bu iþlem gerçekleþtirilmektedir.
+
+\begin{algorithm}
+	\caption{Baðlanabilirlik Testi}
+	\label{algo:confBag}
+	\begin{algorithmic}
+		\Procedure {isConnectable}{$startConf, goalConf, obstacleList$}
+			\State curConf $\gets$ startConf yapýlandýrmasý ile ayný, sanal bir yapýlandýrma
+			\Repeat
+			\State direction $\gets$ curConf - startConf \Comment gidilecek yönü belirle
+			\State curConf $\gets$ curConf + direction \Comment ilerlet
+				\ForAll{$obs \in obstacleList$}
+					\If{ Intersect(curConf,obs.conf) }
+						\State \textbf{return} $false$
+					\EndIf
+				\EndFor
+			\Until{curConf == goalConf}
+			\State \textbf{return} $true$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+Algoritma \ref{algo:confBag}, Agent nesnesinin bir yapýlandýrmadan diðer yapýlandýrmaya giderken herhangi bir engel ile çakýþýp çakýþmadýðýný kontrol etmektedir. Ýlk baþta bulunulan yapýlandýrmanýn bir kopya yapýlandýrmasý oluþturulmaktadýr (curConf). Hedef yapýlandýrmadan bu yapýlandýrma çýkarýlýp normalizasyon iþlemi gerçekleþtirildiðinde bir yön deðeri bulunur (direction). Daha sonra curConf yapýlandýrmasý goalConf yapýlandýrmasýna eþit olana kadar yön deðeri curConf deðerine eklenerek ilerleme saðlanýr. Ýlerlemenin her adýmýnda curConf yapýlandýrmasý çevrede bulunan tüm engellerin yapýlandýrmalarý sýrayla Intercest (Algoritma \ref{algo:intersect}) metoduna gönderilir. Herhangi bir engel ile çakýþma durumunda Intersect metodundan \emph{true} deðeri dönecektir. Böylece bu iki yapýlandýrmanýn baðlanabilirlik testi baþarýz olacaktýr.

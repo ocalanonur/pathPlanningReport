@@ -1,0 +1,14 @@
+Mekanik bir sistemde, yapýlandýrmayý oluþturan birbirinden baðýmsýz deðerler özgürlük derecesini (dof \footnote{dof = degrees of freedom}) oluþturur. Bu deðerlerin tamamý bir sistemin durumu hakkýnda bilgiler içerir. Ayný zamanda yapýlandýrma uzayýnýn boyutunu da belirler. Örneðin fabrikanýn zemininde temizlik yaparak gezinen eklemsiz bir robotu ele alalým. Bu robotun zemin üzerindeki hareketleri, bulunduðu konumun (x,y) kordinatlarý ile gösterilebilir.
+
+Özgürlük derecesinin boyutu her zaman tek deðiþkenden oluþmayabilir. Ayný fabrika içerisinde araç montajýnda çalýþan 3 eklemli bir robot sisteminin durumu birkaç farklý parametrenin birlikteliðinden oluþur (Þekil\ref{fig:dof}). Robotun kendi ekseni etrafýnda dönüþü, eklemlerin birbirleri ile yaptýklarý açýlar birleþerek sistem yapýlandýrmasý hakkýnda bilgi verir.
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[width=0.30\textwidth]{resimler/dof1.png}
+	\hspace{2cm}
+	\includegraphics[width=0.30\textwidth]{resimler/dof2.jpg}
+	\caption{Degrees of Freedom}
+	\label{fig:dof}
+\end{figure*}
+
+Robotun kendi ekseni etrafýnda dönüþü, tüm kollarýn birbirleri ile yaptýklarý açýlar birleþerek sistemin yapýlandýrmasýný oluþturur. Özgürlük derecesinin artmasý $\mathcal{Q}$ yapýlandýrma uzayýnýn boyutunu arttýrarak hesaplamalarýn karmaþýklaþmasýna neden olmaktadýr. Bölüm \ref{chpt:soyp} içerisinde düzlem üzerinde gezinen bir robot için yol planlama aþamalarýndan ve kullanýlan algoritmalardan söz edilecektir.

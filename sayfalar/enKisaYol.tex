@@ -1,0 +1,34 @@
+Yol haritasý oluþturulmasý tamamlandýktan sonra robotun gideceði iki yapýlandýrma arasýnda en kýsa yol bulunmalýdýr. Bir çizge üzerinde gezinerek iki düðüm arasýnda en kýsa yolu bulan algoritmalardan herhangi biri seçilebilir. Dijkstra, Bellman-Ford, A* gibi birçok algoritma çizgeler üzerinde gezinerek en kýsa yol problemleri için çözümler üretmektedir. Simülasyon uygulamasý hazýrlanýrken $O(|E|\log{|V|})$ çalýþma zamanýna sahip Dijkstra algoritmasý seçilmiþtir.
+
+\begin{algorithm}
+	\caption{Dijkstra}
+	\label{algo:dijkstra}
+	\begin{algorithmic}
+		\Function{Dijkstra}{Çizge, baþlangýç}
+			\ForAll{düðüm $ \in $ Çizge}
+				\State uzaklýk[düðüm] $ \gets \infty$
+				\State kaynak[düðüm] $ \gets $ NULL
+			\EndFor
+			
+			\State uzaklýk[baþlangýç] $ \gets $ 0
+			\State Q $ \gets $ Çizge içindeki tüm düðümler
+		
+			\While{Q != NULL}
+				\State u $ \gets $ Q içindeki en kýsa uzaklýða sahip düðüm
+				\State Q $ \gets $ Q - {u}
+				\If{uzaklýk[u] == $ \infty $} \Comment Kalan diðer düðümlere eriþilemez
+					\State \textbf{break}
+				\EndIf
+				\ForAll{ kDüðüm $ \in $ u.komþular }
+					\State kisaYol $ \gets $ uzaklýk[u] + (u, kDüðüm) arasý uzaklýk
+					\If { kisaYol < uzaklýk[kDüðüm] }
+						\State uzaklýk[kDüðüm] $ \gets $ kisaYol
+						\State kaynak[kDüðüm] $ \gets $ u
+					\EndIf
+				\EndFor
+			\EndWhile
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+Bu algoritma ile baþlangýç düðümünden diðer tüm düðümlere olan uzaklýk belirlenmiþtir. Bu uzaklýklara göre her düðüme en kýsa nerelerden gelindiði bilgileri de tutulmaktadýr. Böylece rastgele seçilen bir düðüme giden en kýsa yol bulunabilmektedir.
